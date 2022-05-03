@@ -10,11 +10,11 @@ import { TypeSDKData } from "../../common/types";
 import "./styles.scss";
 
 class DashboardWidget extends Component {
-  // const [state, setState] = useState<TypeSDKData>({
-  //   config: {},
-  //   location: {},
-  //   appSdkInitialized: false,
-  // });
+  const [state, setState] = useState<TypeSDKData>({
+    config: {},
+    location: {},
+    appSdkInitialized: false,
+  });
 
   componentDidMount() {
     ContentstackAppSdk.init().then(async (appSdk) => {
