@@ -30,6 +30,7 @@ const DashboardWidget: React.FC = function () {
 
   return (
     <div className="layout-container">
+      <h2>Dashboard widget</h2>
       {state.appSdkInitialized && (
         // <>
         //   Your dashboard UI must be developed here based on the state variable
