@@ -45,7 +45,7 @@ const App: React.FC = function () {
 
             <Route path="/open-graph-widget" element={<OpenGraphWidget />} />
             <Route path="/flesch-rte-plugin" element={<FleschRtePlugin  />} />
-            <Route path="/page-analysis-dashboard-widget" element={<PageAnalysisDashboardWidget  />} />
+            <Route path="/page-analysis-dashboard-widget" element={<PageAnalysisDashboardWidget />} />
             <Route path="/biased-language-widget" element={<BiasedLanguageWidget  />} />
             <Route path="/sentiment-analysis-widget" element={<SentimentAnalysisWidget  />} />
 

@@ -9,42 +9,50 @@ import { TypeSDKData } from "../../common/types";
 /* Import our CSS */
 import "./styles.scss";
 
-const DashboardWidget: React.FC = function () {
-  const [state, setState] = useState<TypeSDKData>({
-    config: {},
-    location: {},
-    appSdkInitialized: false,
-  });
+class DashboardWidget extends Component {
+  // const [state, setState] = useState<TypeSDKData>({
+  //   config: {},
+  //   location: {},
+  //   appSdkInitialized: false,
+  // });
 
-  useEffect(() => {
+  componentDidMount() {
     ContentstackAppSdk.init().then(async (appSdk) => {
       const config = await appSdk.getConfig();
+
       appSdk?.location?.DashboardWidget?.frame?.enableAutoResizing?.();
+      appSdk?.location?.DashboardWidget?.frame?.updateHeight?.(800);
+
       setState({
         config,
         location: appSdk.location,
         appSdkInitialized: true,
       });
     });
-  }, []);
+  };
 
-  return (
-    <div className="layout-container">
-      <h2>Page anssalysis</h2>
-      {state.appSdkInitialized && (
-        // <>
-        //   Your dashboard UI must be developed here based on the state variable
-        //   {`Your current state is ${JSON.stringify(state)}`}
-        // </>
-        <FieldLabel
-          htmlFor={state?.config?.configField1}
-          className="Dashboard-field"
-        >
-          {state.config.configField1}
-        </FieldLabel>
-      )}
-    </div>
-  );
+  render() {
+    return (
+      <>
+
+<div className="layout-container">
+        {state.appSdkInitialized
+        ?
+        <h2>Page analysis #2</h2>
+  
+        :
+        null
+        }
+      </div>
+
+      </>
+
+    );
+  }
+
+
 };
 
 export default DashboardWidget;
+
+
