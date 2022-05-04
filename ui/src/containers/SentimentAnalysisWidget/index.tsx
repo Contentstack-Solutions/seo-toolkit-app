@@ -1,27 +1,39 @@
 import "@contentstack/venus-components/build/main.css";
 import "./styles.scss";
+import "react-dropdown/style.css";
 
-import {
-  Accordion,
-  EmptyState,
-  Field,
-  InfiniteScrollTable,
-  InstructionText,
-  Select,
-  Table,
-} from "@contentstack/venus-components";
-import { IDictionary, getFieldsDictionary } from "./cs";
+import DataTable, { TableColumn } from "react-data-table-component";
 /* Import React modules */
 import React, { useEffect, useState } from "react";
-import { TypeEntryData, TypeSDKData } from "../../common/types";
 
 /* Import other node modules */
 import ContentstackAppSdk from "@contentstack/app-sdk";
-import { DonutChart } from "react-circle-chart";
+import Dropdown from "react-dropdown";
+import { IDictionary } from "./interfaces";
+import { TypeEntryData } from "../../common/types";
+import { getEntrySentences } from "./cs";
 import { getSentiment } from "./gc";
+import { kill } from "process";
 
 /* Import our modules */
 // import localeTexts from "../../common/locale/en-us";
+const columns: TableColumn<any>[] = [
+  {
+    name: "Sentence",
+    selector: (row) => row.text.content,
+    sortable: true,
+  },
+  {
+    name: "Score",
+    selector: (row) => row.sentiment.score,
+    sortable: true,
+  },
+  {
+    name: "Magnitude",
+    selector: (row) => row.sentiment.magnitude,
+    sortable: true,
+  },
+];
 
 interface IOption {
   id: number;
@@ -38,7 +50,7 @@ const AllFieldOptions: IOption = {
   selected: true,
 };
 const SentimentSidebarWidget: React.FC = function () {
-  const [entryData, setEntryData] = useState<TypeEntryData>({ title: "" });
+  const [entryData, setEntryData] = useState<TypeEntryData>();
   const [entry, setEntry] = useState<any>();
   const [sentiment, setSentiment] = useState<any>();
   const [widget, setWidget] = useState<any>();
@@ -74,8 +86,8 @@ const SentimentSidebarWidget: React.FC = function () {
 
   useEffect(() => {
     if (entry && entryData && entry.content_type.uid) {
-      console.log(entryData, entry.content_type.uid);
-      getFieldsDictionary(entry.content_type.uid, entryData)
+      // console.log(entryData, entry.content_type.uid);
+      getEntrySentences(entry.content_type.uid, entryData)
         .then((res) => {
           setFields(res);
           setFieldOptions(() => {
@@ -87,7 +99,11 @@ const SentimentSidebarWidget: React.FC = function () {
               };
             });
 
-            getSentiment(Object.values(res).join(". "))
+            getSentiment(
+              Object.values(res)
+                .map((v) => v.value) // get all the values of the dictionary
+                .join(". ") // join all the values with a new line ")
+            )
               .then((sentiment) => {
                 // console.log("SENTIMENT", sentiment.data);
                 setSentiment(sentiment.data);
@@ -107,66 +123,46 @@ const SentimentSidebarWidget: React.FC = function () {
 
   return (
     <>
-      {/* <Field labelText="Field">
-        <Select
-          maxMenuHeight={200}
-          value={AllFieldOptions}
-          isClearable
-          onChange={(o: IOption) => {}}
-          options={fieldOptions}
-          isDisabled={!sdkReady}
-          selectedLabel={selectedField.label}
-        />
-      </Field> */}
-
       {selectedField.value === "all" && <></>}
-      <>{JSON.stringify(sentiment)}</>
 
       {sentiment && (
         <>
-          <EmptyState
-            heading={`${sentiment.documentSentiment.score >= 0 ? "Positive" : "Negative"} Sentiment`}
-            description={`Magnitude of sentiment: ${sentiment.documentSentiment.magnitude}`}
-          >
-            <br />
-            <DonutChart
-              size={"sm"}
-              items={[{ label: "Sentiment", value: Math.abs(sentiment.documentSentiment.score * 100) }]}
-              trackWidth={"sm"}
+          <h2 className="sentiment">
+            <span
+              className={`sentiment-${sentiment.documentSentiment.score >= 0 ? "positive" : "negative"}`}
+            >{`${Math.abs(sentiment.documentSentiment.score * 100)}% ${
+              sentiment.documentSentiment.score >= 0 ? "Positive" : "Negative"
+            }`}</span>{" "}
+            Sentiment
+          </h2>
+          <h4 className="sentiment">{`Magnitude of sentiment: ${sentiment.documentSentiment.magnitude}`}</h4>
+          <br />
+          {/* <Field labelText="Field">
+            <Select
+              maxMenuHeight={200}
+              value={AllFieldOptions}
+              isClearable
+              onChange={(o: IOption) => {}}
+              options={fieldOptions}
+              isDisabled={!sdkReady}
+              selectedLabel={selectedField.label}
             />
-          </EmptyState>
+          </Field> */}
+          <Dropdown options={fieldOptions} onChange={() => {}} value={selectedField} />
+          <br />
+          {/* <DonutChart
+            size={"sm"}
+            items={[{ label: "Sentiment", value: Math.abs(sentiment.documentSentiment.score * 100) }]}
+            trackWidth={"sm"}
+          /> */}
+          <br />
           <br />
           <hr />
           <br />
-          <EmptyState heading={`Details`}>
-            <br />
-            <Accordion className="sentiment-accordion" title={"Analysis Summary"}>
-              {JSON.stringify(sentiment.sentences)}
-              {/* <InfiniteScrollTable
-                data={sentiment.sentences}
-                columns={[
-                  {
-                    Header: "Sentence",
-                    id: "text",
-                    accessor: (data: any) => data.text.content,
-                  },
-                  {
-                    Header: "Score",
-                    accessor: (data: any) => data.sentiment.score,
-                  },
-                  {
-                    Header: "Magnitude",
-                    accessor: (data: any) => data.sentiment.magnitude,
-                  },
-                ]}
-                isRowSelect={false}
-                itemStatusMap={{}}
-                fetchTableData={() => {}}
-                uniqueKey={"text"}
-                loading={loading}
-              /> */}
-            </Accordion>
-          </EmptyState>
+          <h2 className="sentiment">Details</h2>
+          <br />
+          {/* {JSON.stringify(sentiment.sentences)} */}
+          <DataTable columns={columns} data={sentiment.sentences} />
         </>
       )}
     </>
