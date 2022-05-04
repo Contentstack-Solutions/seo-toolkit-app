@@ -409,3 +409,11 @@ Below are the various UI locations and their corresponding page in source code:
   
 
 25. The ui.zip is static ui build of react app, which can be deployed in any static serving deployments like AWS S3 and Cloudfront or any other similar service providers.
+
+
+<h2>Page Analysis Dashboard Widget</h2>
+
+1. Create a .env file
+2. Add REACT_APP_GOOGLE_KEY as a variable or copy from .env_template
+3. Get API key from https://developers.google.com/speed/docs/insights/v5/get-started
+4. Add your API key to REACT_APP_GOOGLE_KEY

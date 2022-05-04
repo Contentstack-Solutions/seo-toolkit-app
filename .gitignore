@@ -6,11 +6,12 @@ node_modules/
 /ui/node_modules
 /ui/.npmrc
 /ui/coverage
-
+/ui/src/containers/SentimentAnalysisWidget/config.json
 # production
 /api/build
 /ui/build
 /to-deploy
+/ui/.env
 
 # misc
 .DS_Store
@@ -24,3 +25,5 @@ node_modules/
 
 .vscode
 .eslintcache
+
+flesch-kincaid/dist

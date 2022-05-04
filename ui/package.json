@@ -17,7 +17,8 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "dev": "react-scripts --openssl-legacy-provider start start",
+    "dev": "HTTPS=true react-scripts start",
+    "dev-original": "react-scripts --openssl-legacy-provider start",
     "build": "export CI=false && react-scripts build"
   },
   "eslintConfig": {
