@@ -29,8 +29,8 @@ const DashboardWidget: React.FC = function () {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const analyzeWebsite = async (domainName: string) => {
-    let key = 'AIzaSyCfraf3NrUxoHUygKGunRvRefWq0zXw_wY';
-    let response = await fetch(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${domainName}&key=${key}`)
+
+    let response = await fetch(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${domainName}&key=${process.env.REACT_APP_GOOGLE_KEY}`)
 
     if (!response.ok) {
       throw new Error("HTTP status " + response.status);
