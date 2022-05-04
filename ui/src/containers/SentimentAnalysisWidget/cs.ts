@@ -1,12 +1,14 @@
 import { IDictionary, IFieldData, IFieldDetails } from "./interfaces";
 
 import axios from "axios";
-import config from "./config.json";
+// import config from "./config.json";
 import { getCSOptions } from "../../common/utils/axios";
 
 const getContentTypeFields = async (contentTypeUid: string, data: any): Promise<IFieldDetails> => {
   const options = getCSOptions({ method: "GET" });
-  const cts = await axios(`${config.CS_API_HOST}/v3/content_types/${contentTypeUid}`, options);
+
+  // const cts = await axios(`${config.CS_API_HOST}/v3/content_types/${contentTypeUid}`, options);
+  const cts = await axios(`${process.env.REACT_APP_CS_API_HOST}/v3/content_types/${contentTypeUid}`, options);
   const fields = cts.data.content_type.schema as any[];
   return Promise.resolve({
     data_type: "reference",
@@ -18,7 +20,8 @@ const getContentTypeFields = async (contentTypeUid: string, data: any): Promise<
 
 const getGlobalFieldFields = async (gfUid: string, data: any): Promise<IFieldDetails> => {
   const options = getCSOptions({ method: "GET" });
-  const gfs = await axios(`${config.CS_API_HOST}/v3/global_fields/${gfUid}`, options);
+  // const gfs = await axios(`${config.CS_API_HOST}/v3/global_fields/${gfUid}`, options);
+  const gfs = await axios(`${process.env.REACT_APP_CS_API_HOST}/v3/global_fields/${gfUid}`, options);
   const fields = gfs.data.global_field.schema as any[];
   return Promise.resolve({
     data_type: "global_field",
@@ -186,11 +189,11 @@ const getSentencesFromBlock = (possibleBlock: any, data: any, fieldData: IFieldD
 
 const getJsonTexts = (json: any): string => {
   console.log("JSON");
-  traverse(json, process);
+  traverse(json, doProcess);
   return "";
 };
 
-function process(key: any, value: any) {
+function doProcess(key: any, value: any) {
   console.log(key + " : " + value);
 }
 
