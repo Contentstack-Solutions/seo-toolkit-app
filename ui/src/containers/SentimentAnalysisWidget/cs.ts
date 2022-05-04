@@ -14,30 +14,35 @@ export const getFieldsDictionary = async (contentTypeUid: string, data: any) => 
   fields.forEach((field: any) => {
     if (field.data_type === "text") {
       result[field.uid] = data[field.uid];
-    } else if (field.data_type === "blocks") {
-      const innerFields = field.blocks as any[];
+    } else if (field.data_type === "blocks" || field.data_type === "group") {
+      const innerFields = field.data_type === "blocks" ? (field.blocks as any[]) : [field];
       let i = 0;
-      innerFields.forEach((innerField: any) => {
-        const blockFields = innerField.schema as any[];
 
-        blockFields.forEach((blockField: any) => {
-          if (blockField.data_type === "text") {
-            const key = `${field.uid}.${i}.${innerField.uid}.${blockField.uid}`;
-            // console.log("key", key);
-            // result[key] = data[field.uid][j][innerField.uid][blockField.uid];
-            // console.log(innerField.uid, blockField.uid);
-            if (
-              data[field.uid][i] &&
-              data[field.uid][i][innerField.uid] &&
-              data[field.uid][i][innerField.uid][blockField.uid]
-            ) {
-              result[key] = data[field.uid][i][innerField.uid][blockField.uid];
-            }
+      innerFields.forEach((innerField: any) => {
+        const blockOrGroupFields = innerField.schema as any[];
+
+        blockOrGroupFields.forEach((blockOrGroupField: any) => {
+          console.log(blockOrGroupField.data_type);
+          if (blockOrGroupField.data_type === "text") {
+            const indexPortion = field.data_type === "blocks" ? `.${i}.` : ".";
+            const key = `${field.uid}.${i}.${innerField.uid}.${blockOrGroupField.uid}`;
+            console.log("DATA", data);
+            console.log("INDEX", i);
+            console.log("FIELD UID", field.uid);
+            console.log("INNER UID", innerField.uid);
+            console.log("BORGF UID", blockOrGroupField.uid);
+            // console.log(key, "F", innerField.uid, "DATA", data[field.uid][i]);
+            const fieldValue =
+              field.data_type === "blocks"
+                ? data[field.uid][i][innerField.uid][blockOrGroupField.uid]
+                : data[field.uid][i][blockOrGroupField.uid];
+            result[key] = fieldValue;
           }
         });
         i++;
       });
     }
   });
+  console.log(result);
   return result;
 };

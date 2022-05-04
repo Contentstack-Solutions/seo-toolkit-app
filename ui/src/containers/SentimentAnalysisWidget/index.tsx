@@ -1,7 +1,15 @@
 import "@contentstack/venus-components/build/main.css";
 import "./styles.scss";
 
-import { Field, Select } from "@contentstack/venus-components";
+import {
+  Accordion,
+  EmptyState,
+  Field,
+  InfiniteScrollTable,
+  InstructionText,
+  Select,
+  Table,
+} from "@contentstack/venus-components";
 import { IDictionary, getFieldsDictionary } from "./cs";
 /* Import React modules */
 import React, { useEffect, useState } from "react";
@@ -39,12 +47,9 @@ const SentimentSidebarWidget: React.FC = function () {
   const [config, setConfig] = useState<any>();
   const [sdkReady, setSdkReady] = useState<boolean>(false);
   const [location, setLocation] = useState<any>();
+  const [loading, setLoading] = useState<boolean>(true);
 
   const [fields, setFields] = useState<IDictionary>();
-
-  const onChangeEntry = (a: any) => {
-    console.log("hello");
-  };
 
   useEffect(() => {
     // eslint-disable-next-line no-restricted-globals
@@ -69,6 +74,7 @@ const SentimentSidebarWidget: React.FC = function () {
 
   useEffect(() => {
     if (entry && entryData && entry.content_type.uid) {
+      console.log(entryData, entry.content_type.uid);
       getFieldsDictionary(entry.content_type.uid, entryData)
         .then((res) => {
           setFields(res);
@@ -80,9 +86,12 @@ const SentimentSidebarWidget: React.FC = function () {
                 value: key,
               };
             });
+
             getSentiment(Object.values(res).join(". "))
               .then((sentiment) => {
+                // console.log("SENTIMENT", sentiment.data);
                 setSentiment(sentiment.data);
+                setLoading(false);
               })
               .catch((err) => {
                 setSentiment("Something went wrong");
@@ -111,34 +120,56 @@ const SentimentSidebarWidget: React.FC = function () {
       </Field> */}
 
       {selectedField.value === "all" && <></>}
-      {/* <>{JSON.stringify(sentiment)}</> */}
+      <>{JSON.stringify(sentiment)}</>
 
       {sentiment && (
-        <div className="center">
-          <Field labelText="Positive Sentiment">
-            <DonutChart size={"sm"} items={[{ label: "Sentiment", value: sentiment.documentSentiment.score * 100 }]} />
-          </Field>
-        </div>
+        <>
+          <EmptyState
+            heading={`${sentiment.documentSentiment.score >= 0 ? "Positive" : "Negative"} Sentiment`}
+            description={`Magnitude of sentiment: ${sentiment.documentSentiment.magnitude}`}
+          >
+            <br />
+            <DonutChart
+              size={"sm"}
+              items={[{ label: "Sentiment", value: Math.abs(sentiment.documentSentiment.score * 100) }]}
+              trackWidth={"sm"}
+            />
+          </EmptyState>
+          <br />
+          <hr />
+          <br />
+          <EmptyState heading={`Details`}>
+            <br />
+            <Accordion className="sentiment-accordion" title={"Analysis Summary"}>
+              {JSON.stringify(sentiment.sentences)}
+              {/* <InfiniteScrollTable
+                data={sentiment.sentences}
+                columns={[
+                  {
+                    Header: "Sentence",
+                    id: "text",
+                    accessor: (data: any) => data.text.content,
+                  },
+                  {
+                    Header: "Score",
+                    accessor: (data: any) => data.sentiment.score,
+                  },
+                  {
+                    Header: "Magnitude",
+                    accessor: (data: any) => data.sentiment.magnitude,
+                  },
+                ]}
+                isRowSelect={false}
+                itemStatusMap={{}}
+                fetchTableData={() => {}}
+                uniqueKey={"text"}
+                loading={loading}
+              /> */}
+            </Accordion>
+          </EmptyState>
+        </>
       )}
     </>
-    // <div className="layout-container">
-    //   {state.appSdkInitialized && (
-    //     <div className="sidebar-wrapper">
-    //       {/* <FieldLabel htmlFor={state?.config?.configField1} className="sidebar-field">
-    //         {state.config.configField1}
-    //       </FieldLabel>
-    //       <div className="entry-wrapper">
-    //         <FieldLabel htmlFor="entry-title" className="sidebar-field">
-    //           {localeTexts.sidebarWidget.titleCaption}
-    //         </FieldLabel>
-    //         <FieldLabel htmlFor={entryData?.title} className="sidebar-field">
-    //           {entryData?.title}
-    //         </FieldLabel>
-    //       </div> */}
-    //       {JSON.stringify(sentiment)}
-    //     </div>
-    //   )}
-    // </div>
   );
 };
 
