@@ -6,13 +6,14 @@
   }
 
   .Button {
-    margin-left: 1em;
+    margin-left: 1.5em;
   }
 
   .loading-message {
     width: 585px;
     margin-top: 2em;
-    text-align: center;
+    margin-left: .5em;
+    // text-align: center;
     animation: fadeIn 1s infinite alternate ease-in-out;
   }
 
@@ -23,6 +24,23 @@
   .analysis-results {
     width: 585px;
     margin-top: 2em;
+
+    .card {
+      margin-bottom: 1.5em;
+      border-radius: 10px;
+      padding: 1em;
+      transition: .2s;
+      background-color: #edf1f7;
+
+      &:nth-of-type(2) {
+        margin-bottom: 0;
+      }
+
+      &:hover {
+        background-color: #edf1f7b0;
+      }
+    }
+
   }
   
 
