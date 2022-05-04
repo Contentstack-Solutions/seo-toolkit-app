@@ -9,9 +9,10 @@ import localeTexts from "../../common/locale/en-us";
 /* Import node module CSS */
 /* Import our CSS */
 import "./styles.scss";
+import Card from "../../components/open-graph/cards"
 
 const SidebarWidget: React.FC = function () {
-  const [entryData, setEntryData] = useState<TypeEntryData>({ title: "" });
+  const [entryData, setEntryData] = useState<TypeEntryData>();
   const [state, setState] = useState<TypeSDKData>({
     config: {},
     location: {},
@@ -21,6 +22,10 @@ const SidebarWidget: React.FC = function () {
   useEffect(() => {
     ContentstackAppSdk.init().then(async (appSdk) => {
       const config = await appSdk?.getConfig();
+      const SidebarWidget = await appSdk.location.SidebarWidget;
+      const entry = await SidebarWidget?.entry;
+      await SidebarWidget?.entry.onChange(changeValue);
+      console.log(entry);
 
       const entryDataFromSDK =
         appSdk?.location?.SidebarWidget?.entry?.getData();
@@ -33,8 +38,13 @@ const SidebarWidget: React.FC = function () {
     });
   }, []);
 
+
+  function changeValue(data : any) {
+    console.log("output");
+  }
+
   return (
-    <div className="layout-container">
+    <div className="layout-container" style={{ "width": "max-content" }}>
       {state.appSdkInitialized && (
         // <>
         // Your sidebar UI must be developed here based on the state variable
@@ -49,12 +59,8 @@ const SidebarWidget: React.FC = function () {
             {state.config.configField1}
           </FieldLabel>
           <div className="entry-wrapper">
-            <FieldLabel htmlFor="entry-title" className="sidebar-field">
-              {localeTexts.sidebarWidget.titleCaption}
-            </FieldLabel>
-            <FieldLabel htmlFor={entryData?.title} className="sidebar-field">
-              {entryData?.title}
-            </FieldLabel>
+
+            <Card data={entryData} />
           </div>
         </div>
       )}

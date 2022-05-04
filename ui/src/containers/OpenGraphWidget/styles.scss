@@ -72,3 +72,220 @@ a:hover {
     margin-top: 10px;
   }
 }
+
+.card{
+  cursor:pointer
+}
+.card--facebook{
+  width:274px;
+  max-width:100%;
+  font-family:Helvetica,Arial,sans-serif
+}
+.card--facebook .card__image{
+  height:137px;
+  border:1px solid #dadde1;
+  border-bottom:0
+}
+.card--facebook .card__meta{
+  padding:10px 12px;
+  border:1px solid #dadde1;
+  background-color:#f2f3f5
+}
+.card--facebook .card__website{
+  color:#606770;
+  font-size:12px;
+  line-height:11px
+}
+.card--facebook .card__title-wrapper{
+  height:46px;
+  max-height:46px
+}
+.card--facebook .card__title{
+  margin-top:3px;
+  padding-top:2px;
+  color:#1d2129;
+  font-size:16px;
+  line-height:20px
+}
+.card--facebook .card__description{
+  height:18px;
+  max-height:80px;
+  margin-top:3px;
+  color:#606770;
+  font-size:14px;
+  line-height:20px;
+  -webkit-line-clamp:1
+}
+.card--twitter{
+  box-sizing:border-box;
+  width:438px;
+  max-width:100%;
+  overflow:hidden;
+  transition:background-color .15s ease-in-out,border-color .15s ease-in-out;
+  border-radius:.85714em;
+  border:1px solid #e1e8ed;
+  outline-offset:-1px;
+  background:#fff;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  line-height:1.3em;
+  cursor:pointer
+}
+.card--twitter:hover{
+  border-color:rgba(136,153,166,.5);
+  background:#f5f8fa
+}
+.card--twitter .card__meta{
+  box-sizing:border-box;
+  padding:.75em;
+  text-decoration:none
+}
+.card--twitter .card__image{
+  height:220px;
+  border-bottom:1px solid #e1e8ed
+}
+.card--twitter .card__description,.card--twitter .card__title,.card--twitter .card__website{
+  color:#000;
+  font-size:14px;
+  line-height:18px
+}
+.card--twitter .card__website{
+  margin-top:.32333em;
+  overflow:hidden;
+  color:#8899a6;
+  text-overflow:ellipsis;
+  text-transform:lowercase;
+  white-space:nowrap
+}
+.card--twitter .card__title{
+  margin:0 0 .15em;
+  line-height:18px
+}
+.card--twitter .card__description{
+  max-height:2.6em;
+  margin-top:.32333em;
+  -webkit-line-clamp:2
+}
+.card--linkedin{
+  position:relative;
+  width:520px;
+  max-width:100%;
+  overflow:hidden;
+  transition:box-shadow 83ms;
+  border-radius:2px;
+  background-color:#fff;
+  box-shadow:0 0 0 1px rgba(0,0,0,.15),0 2px 3px rgba(0,0,0,.2);
+  font-family:Helvetica,Arial,sans-serif
+}
+.card--linkedin .card__image{
+  height:270px
+}
+.card--linkedin .card__meta{
+  padding:10px;
+  background-color:#fff
+}
+.card--linkedin .card__website{
+  color:rgba(0,0,0,.6);
+  font-size:12px;
+  font-weight:400;
+  line-height:16px
+}
+.card--linkedin .card__title-wrapper{
+  height:auto;
+  max-height:50px
+}
+.card--linkedin .card__title{
+  padding-bottom:2px;
+  color:rgba(0,0,0,.9);
+  font-size:16px;
+  font-weight:600;
+  line-height:24px
+}
+.card--discord{
+  width:432px;
+  max-width:100%;
+  font-family:Whitney,Helvetica Neue,Helvetica,Arial,sans-serif;
+  box-sizing:border-box;
+  border-radius:4px;
+  position:relative;
+  display:grid;
+  border-left:4px solid #202225;
+  background:#2f3136;
+  justify-self:start;
+  align-self:start;
+  -webkit-font-smoothing:auto
+}
+.card--discord .discord-grid{
+  overflow:hidden;
+  padding:.5rem 1rem 1rem .75rem;
+  display:inline-grid;
+  grid-template-columns:auto;
+  grid-template-rows:auto
+}
+.card--discord .card__website{
+  font-size:12px;
+  line-height:1rem;
+  font-weight:400;
+  grid-column:1/1;
+  color:#fff;
+  margin-top:8px
+}
+.card--discord .card__title{
+  font-size:16px;
+  font-weight:600;
+  display:inline-block;
+  grid-column:1/1;
+  margin-top:8px;
+  color:#00b0f4;
+  word-break:break-word;
+  text-decoration:none;
+  cursor:pointer
+}
+.card--discord .card__description{
+  border-width:0;
+  color:#dcddde;
+  font-family:Whitney,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size:14px;
+  font-weight:400;
+  grid-column:1/1;
+  line-height:18px;
+  margin:8px 0 0;
+  min-width:0;
+  outline:0;
+  padding:0;
+  text-align:left;
+  unicode-bidi:-moz-plaintext;
+  unicode-bidi:plaintext;
+  vertical-align:baseline;
+  white-space:pre-line;
+  overflow-wrap:break-word
+}
+.card--discord .card__image{
+  margin-top:16px
+}
+.card--discord .card__image img{
+  display:block;
+  border-radius:4px
+}
+.card__title-wrapper{
+  display:block;
+  border-collapse:separate;
+  text-align:left;
+  word-wrap:break-word;
+  -webkit-border-horizontal-spacing:0;
+  -webkit-border-vertical-spacing:0;
+  direction:ltr
+}
+.card__title{
+  font-family:inherit;
+  font-weight:600
+}
+.card__description{
+  display:block;
+  border-collapse:separate;
+  text-align:left;
+  word-wrap:break-word;
+  -webkit-border-horizontal-spacing:0;
+  -webkit-border-vertical-spacing:0;
+  -webkit-box-orient:vertical;
+  direction:ltr
+}
