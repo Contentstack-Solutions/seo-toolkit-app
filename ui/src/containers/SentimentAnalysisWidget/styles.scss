@@ -2,6 +2,9 @@
 .tbl {
   margin-left: 0;
 }
+.app {
+  display: block;
+}
 .layout-container {
   display: flex;
   flex-direction: column;
@@ -71,4 +74,7 @@ a:hover {
   .entry-wrapper {
     margin-top: 10px;
   }
+}
+.sentiment-accordion {
+  width: 100%;
 }
