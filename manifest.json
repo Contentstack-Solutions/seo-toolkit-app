@@ -5,78 +5,78 @@
   "name": "SEO Toolkit",
   "description": "A toolkit of SEO apps.",
   "icon": "",
-  "ui_location":
-  {
+  "ui_location": {
     "locations": [
-    {
-      "type": "cs.cm.stack.custom_field",
-      "meta": [
-        {
-          "signed": false,
-          "path": "/custom-field",
-          "name": "Custom Field",
-          "data_type": "json"
-        }
-      ]
-    },
-    {
-      "type": "cs.cm.stack.sidebar",
-      "meta": [
-        {
-          "signed": false,
-          "path": "/sidebar-widget",
-          "name": "Sidebar Widget",
-          "data_type": "json"
-        },
-        {
-          "signed": true,
-          "path": "/open-graph-widget",
-          "name": "Open Graph Widget",
-          "data_type": "json"
-        },
-        {
-          "signed": true,
-          "path": "/biased-language-widget",
-          "name": "Biased Language Widget",
-          "data_type": "json"
-        },
-        {
-          "signed": true,
-          "path": "/sentiment-analysis-widget",
-          "name": "Sentiment Analysis Widget",
-          "data_type": "json"
-        }
-      ]
-    },
-    {
-      "type": "cs.cm.stack.dashboard",
-      "meta": [
-        {
-          "signed": false,
-          "path": "/dashboard-widget",
-          "name": "Dashboard Widget",
-          "data_type": "json"
-        },
-        {
-          "signed": true,
-          "path": "/page-analysis-dashboard-widget",
-          "name": "Page Analysis Dashboard Widget",
-          "data_type": "json"
-        }
-      ]
-    },
-    {
-      "type": "cs.cm.stack.rte",
-      "meta": [
-        {
-          "signed": true,
-          "path": "/flesch-rte-plugin",
-          "name": "Flesch RTE Plugin",
-          "data_type": "json"
-        }
-      ]
-    }
-  ],
+      {
+        "type": "cs.cm.stack.custom_field",
+        "meta": [
+          {
+            "signed": false,
+            "path": "/custom-field",
+            "name": "Custom Field",
+            "data_type": "json"
+          }
+        ]
+      },
+      {
+        "type": "cs.cm.stack.sidebar",
+        "meta": [
+          {
+            "signed": false,
+            "path": "/sidebar-widget",
+            "name": "Sidebar Widget",
+            "data_type": "json"
+          },
+          {
+            "signed": true,
+            "path": "/open-graph-widget",
+            "name": "Open Graph Widget",
+            "data_type": "json"
+          },
+          {
+            "signed": true,
+            "path": "/biased-language-widget",
+            "name": "Biased Language Widget",
+            "data_type": "json"
+          },
+          {
+            "signed": true,
+            "path": "/sentiment-analysis-widget",
+            "name": "Sentiment Analysis Widget",
+            "data_type": "json"
+          }
+        ]
+      },
+      {
+        "type": "cs.cm.stack.dashboard",
+        "meta": [
+          {
+            "signed": false,
+            "path": "/dashboard-widget",
+            "name": "Dashboard Widget",
+            "data_type": "json"
+          },
+          {
+            "signed": true,
+            "path": "/page-analysis-dashboard-widget",
+            "name": "Page Analysis Dashboard Widget",
+            "data_type": "json"
+          }
+        ]
+      },
+      {
+        "type": "cs.cm.stack.rte",
+        "meta": [
+          {
+            "name": "Flesch-Kinkaid Grade Level",
+            "path": "/flesch-kincaid/plugin.system.js",
+            "signed": false,
+            "enabled": true,
+            "description": "Flesch-Kinkaid Grade Level RTE Plugin"
+          }
+        ]
+      }
+    ],
     "signed": true,
     "base_url": "http://localhost:3000"
   }
