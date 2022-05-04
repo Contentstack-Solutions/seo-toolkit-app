@@ -6,6 +6,7 @@ node_modules/
 /ui/node_modules
 /ui/.npmrc
 /ui/coverage
+/ui/src/containers/SentimentAnalysisWidget/config.json
 
 # production
 /api/build

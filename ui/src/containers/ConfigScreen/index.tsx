@@ -1,21 +1,19 @@
-/* Import React modules */
-import React, { useState, useEffect } from "react";
-/* Import other node modules */
-import {
-  FieldLabel,
-  TextInput,
-  InstructionText,
-} from "@contentstack/venus-components";
-import ContentstackAppSdk from "@contentstack/app-sdk";
-/* Import our modules */
-import localeTexts from "../../common/locale/en-us";
-import utils from "../../common/utils";
-import { TypeAppSdkConfigState } from "../../common/types";
 // import { getDataFromAPI } from '../../services'; //If no services are required, this can be removed\
 /* Import node module CSS */
 import "@contentstack/venus-components/build/main.css";
 /* Import our CSS */
 import "./styles.scss";
+
+/* Import other node modules */
+import { FieldLabel, InstructionText, TextInput } from "@contentstack/venus-components";
+/* Import React modules */
+import React, { useEffect, useState } from "react";
+
+import ContentstackAppSdk from "@contentstack/app-sdk";
+import { TypeAppSdkConfigState } from "../../common/types";
+/* Import our modules */
+import localeTexts from "../../common/locale/en-us";
+import utils from "../../common/utils";
 
 /* eslint-disable */
 const ConfigScreen: React.FC = function () {
@@ -37,15 +35,11 @@ const ConfigScreen: React.FC = function () {
     ContentstackAppSdk.init().then(async (appSdk) => {
       const sdkConfigData = appSdk?.location?.AppConfigWidget?.installation;
       if (sdkConfigData) {
-        const installationDataFromSDK =
-          await sdkConfigData.getInstallationData();
+        const installationDataFromSDK = await sdkConfigData.getInstallationData();
         const setInstallationDataOfSDK = sdkConfigData.setInstallationData;
         setState({
           ...state,
-          installationData: utils.mergeObjects(
-            state.installationData,
-            installationDataFromSDK
-          ),
+          installationData: utils.mergeObjects(state.installationData, installationDataFromSDK),
           setInstallationData: setInstallationDataOfSDK,
           appSdkInitialized: true,
         });
@@ -98,9 +92,7 @@ const ConfigScreen: React.FC = function () {
             name="configField1"
             onChange={updateConfig}
           />
-          <InstructionText>
-            {localeTexts.configFields.field1.instruction}
-          </InstructionText>
+          <InstructionText>{localeTexts.configFields.field1.instruction}</InstructionText>
         </div>
       </div>
     </div>
