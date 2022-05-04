@@ -16,12 +16,6 @@
           "path": "/custom-field",
           "name": "Custom Field",
           "data_type": "json"
-        },
-        {
-          "signed": true,
-          "path": "/flesch-rte-plugin",
-          "name": "Flesch RTE Plugin",
-          "data_type": "json"
         }
       ]
     },
@@ -67,6 +61,17 @@
           "signed": true,
           "path": "/page-analysis-dashboard-widget",
           "name": "Page Analysis Dashboard Widget",
+          "data_type": "json"
+        }
+      ]
+    },
+    {
+      "type": "cs.cm.stack.rte",
+      "meta": [
+        {
+          "signed": true,
+          "path": "/flesch-rte-plugin",
+          "name": "Flesch RTE Plugin",
           "data_type": "json"
         }
       ]
