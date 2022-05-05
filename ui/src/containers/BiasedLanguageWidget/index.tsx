@@ -2,21 +2,29 @@
 import React, { useEffect, useState } from "react";
 /* Import other node modules */
 import ContentstackAppSdk from "@contentstack/app-sdk";
-import { FieldLabel } from "@contentstack/venus-components";
+import { FieldLabel, TextInput } from "@contentstack/venus-components";
 import { TypeSDKData, TypeEntryData } from "../../common/types";
 /* Import our modules */
 import localeTexts from "../../common/locale/en-us";
 /* Import node module CSS */
 /* Import our CSS */
 import "./styles.scss";
+import { unified } from "unified";
+import retextEnglish from "retext-english";
+import retextEquality from "retext-equality";
+import retextStringify from "retext-stringify";
+import retextSimplify from "retext-simplify";
+import retextProfanities from "retext-profanities";
+import retextIntensify from "retext-intensify";
 
-const SidebarWidget: React.FC = function () {
+const BiasedLanguageWidget: React.FC = function () {
   const [entryData, setEntryData] = useState<TypeEntryData>({ title: "" });
   const [state, setState] = useState<TypeSDKData>({
     config: {},
     location: {},
     appSdkInitialized: false,
   });
+  const [insensitivelanguage, setInsensitivelanguage] = useState("");
 
   useEffect(() => {
     ContentstackAppSdk.init().then(async (appSdk) => {
@@ -33,33 +41,42 @@ const SidebarWidget: React.FC = function () {
     });
   }, []);
 
+  const onChangeText = (value: string) => {
+    callRetext(value);
+  };
+
+  const callRetext = (text: string) => {
+    unified()
+      .use(retextEnglish)
+      .use(retextEquality)
+      .use(retextStringify)
+      .use(retextSimplify)
+      .use(retextProfanities)
+      .use(retextIntensify)
+      .process(text)
+      .then((file: any) => {
+        let result = "";
+        file.messages.map((value: any) => (result += value.message + ". "));
+        setInsensitivelanguage(result);
+      });
+  };
+
   return (
     <div className="layout-container">
-      {state.appSdkInitialized && (
-        // <>
-        // Your sidebar UI must be developed here based on the state variable
-        // {`Your current state is ${JSON.stringify(state)}`}
-        // {`Your current entryData is ${JSON.stringify(entryData)}`}
-        // </>
+      {state.appSdkInitialized && ( 
         <div className="sidebar-wrapper">
-          <FieldLabel
-            htmlFor={state?.config?.configField1}
-            className="sidebar-field"
-          >
-            {state.config.configField1}
+          <TextInput
+            onChange={(e: any) => onChangeText(e.target.value)}
+            value=""
+            name={"sample"}
+          ></TextInput>
+          <FieldLabel htmlFor={"sample"} className="color-label">
+            {insensitivelanguage}
           </FieldLabel>
-          <div className="entry-wrapper">
-            <FieldLabel htmlFor="entry-title" className="sidebar-field">
-              {localeTexts.sidebarWidget.titleCaption}
-            </FieldLabel>
-            <FieldLabel htmlFor={entryData?.title} className="sidebar-field">
-              {entryData?.title}
-            </FieldLabel>
-          </div>
         </div>
       )}
     </div>
   );
 };
 
-export default SidebarWidget;
+export default BiasedLanguageWidget;

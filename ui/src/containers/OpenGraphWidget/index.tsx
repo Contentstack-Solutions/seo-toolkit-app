@@ -44,7 +44,7 @@ const SidebarWidget: React.FC = function () {
   }
 
   return (
-    <div className="layout-container" style={{ "width": "max-content" }}>
+    <div className="layout-container">
       {state.appSdkInitialized && (
         // <>
         // Your sidebar UI must be developed here based on the state variable
@@ -52,14 +52,10 @@ const SidebarWidget: React.FC = function () {
         // {`Your current entryData is ${JSON.stringify(entryData)}`}
         // </>
         <div className="sidebar-wrapper">
-          <FieldLabel
-            htmlFor={state?.config?.configField1}
-            className="sidebar-field"
-          >
+          <FieldLabel htmlFor={state?.config?.configField1}className="sidebar-field">
             {state.config.configField1}
           </FieldLabel>
           <div className="entry-wrapper">
-
             <Card data={entryData} />
           </div>
         </div>

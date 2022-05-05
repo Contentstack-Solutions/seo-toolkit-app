@@ -1,20 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { TypeEntryData } from "../../common/types";
 
-
-interface entry {
-    data: any
-}
 
 const Card: React.FC<any> = function (props) {
 
-    useEffect(() => {
-        console.log("1", props.data);
-        console.log("2", props.data.global_field.image.url);
-    }, []);
-
     return (
-        <div>
             <div data-v-50ec5123="" className="px-4 py-6 text-left transition-all duration-200 ease-in-out bg-white border border-gray-100 border-solid rounded-lg shadow-sm dark:border-gray-500 dark:bg-gray-700 hover:shadow-md sm:px-6 sm:py-8 metatags-form">
                 <p data-v-50ec5123="" className="max-w-2xl mb-4 text-base leading-5 text-gray-700 dark:text-gray-200">
                     How your website is displayed on search engines &amp; social media.
@@ -81,6 +69,7 @@ const Card: React.FC<any> = function (props) {
                                 </div>
                             </div>
                         </div>
+                        <br />
                         <div data-v-7f154148="" className="w-full m-2">
                             <h3 data-v-7f154148="" className="mb-2 font-heading font-medium text-gray-900 uppercase dark:text-gray-200">
                                 Discord
@@ -101,7 +90,6 @@ const Card: React.FC<any> = function (props) {
                     </div>
                 </div>
             </div>
-        </div >
     )
 }
 
